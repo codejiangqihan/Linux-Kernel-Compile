@@ -1,30 +1,37 @@
 name: Compile Linux Kernel
 
 on:
-  push:
-    branches:
-      - master  # 或者你想要监控的其他分支
+  schedule:
+    - cron: '0 0 * * *'  # 每天的UTC时间0点触发，可以根据需要调整时间
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - name: Set up Git
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git
+
+    - name: Clone torvalds/linux repository
+      run: |
+        git clone https://github.com/torvalds/linux.git
+        cd linux
 
     - name: Set up build dependencies
       run: |
-        sudo apt-get update
         sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
 
     - name: Configure kernel
       run: |
+        cd linux
         make defconfig  # 或者使用你自己的配置文件
         make menuconfig # 可选步骤，如果需要修改配置
 
     - name: Build kernel
       run: |
+        cd linux
         make -j$(nproc)
 
     - name: Archive build artifacts
@@ -32,6 +39,6 @@ jobs:
       with:
         name: kernel-build
         path: |
-          arch/x86/boot/bzImage
-          System.map
-          vmlinux
+          linux/arch/x86/boot/bzImage
+          linux/System.map
+          linux/vmlinux
