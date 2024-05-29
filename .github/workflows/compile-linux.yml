@@ -3,9 +3,6 @@ name: Compile Linux Kernel
 on:
   schedule:
     - cron: '0 0 * * *'  # 每天的UTC时间0点触发，可以根据需要调整时间
-  push:
-    branches:
-      - main
 
 jobs:
   build:
@@ -29,8 +26,7 @@ jobs:
     - name: Configure kernel
       run: |
         cd linux
-        make defconfig  # 或者使用你自己的配置文件
-        make menuconfig # 可选步骤，如果需要修改配置
+        make defconfig  # 使用默认配置文件
 
     - name: Build kernel
       run: |
