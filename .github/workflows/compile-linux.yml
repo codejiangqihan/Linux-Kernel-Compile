@@ -35,7 +35,8 @@ jobs:
     - name: Build kernel
       run: |
         cd linux
-        make -j$(nproc) deb-pkg
+        CPU_CORES=$(($(grep -c processor < /proc/cpuinfo)*2))
+        make deb-pkg -j"$CPU_CORES"
         
     - name: Upload kernel deb packages
       uses: actions/upload-artifact@v3
