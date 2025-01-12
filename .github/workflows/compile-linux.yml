@@ -37,8 +37,8 @@ jobs:
         cd linux
         make -j$(nproc) deb-pkg
 
-    - name: Archive build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: kernel-packages
+    - name: Upload kernel deb packages
+        uses: actions/upload-artifact@v3
+        with:
+          name: kernel-packages
           path: ../*.deb
