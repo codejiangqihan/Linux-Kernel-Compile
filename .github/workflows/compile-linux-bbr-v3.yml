@@ -1,4 +1,4 @@
-name: Compile Linux Kernel BBR V3
+name: Compile Linux Kernel
 
 on:
   #schedule:
@@ -18,10 +18,14 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y git
 
-    - name: Clone google/bbr repository
+    - name: Clone torvalds/linux repository and download bbr
       run: |
-        git clone -o google-bbr -b v3  https://github.com/google/bbr.git
-        cd bbr
+        git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        cd linux
+        git checkout linux-6.12.y
+        cd net/ipv4
+        rm tcp_bbr.c
+        wget https://raw.githubusercontent.com/google/bbr/refs/heads/v3/net/ipv4/tcp_bbr.c
 
     - name: Set up build dependencies
       run: |
@@ -29,12 +33,12 @@ jobs:
 
     - name: Configure kernel
       run: |
-        cd bbr
+        cd linux
         make defconfig  # 使用默认配置文件
 
     - name: Build kernel
       run: |
-        cd bbr
+        cd linux
         make -j$(nproc) bindeb-pkg
 
     - name: Archive build artifacts
