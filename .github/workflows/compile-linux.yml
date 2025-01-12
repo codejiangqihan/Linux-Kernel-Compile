@@ -19,8 +19,9 @@ jobs:
 
     - name: Clone torvalds/linux repository
       run: |
-        git clone https://github.com/torvalds/linux.git
+        git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
         cd linux
+        git checkout v6.6.71
 
     - name: Set up build dependencies
       run: |
