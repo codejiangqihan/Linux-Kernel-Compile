@@ -33,6 +33,7 @@ jobs:
 
     - name: Configure kernel
       run: |
+        cp /boot/config-"$(uname -r)" .config
         cd linux
         make defconfig  # 使用默认配置文件
 
