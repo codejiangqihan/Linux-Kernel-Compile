@@ -35,13 +35,10 @@ jobs:
     - name: Build kernel
       run: |
         cd linux
-        make -j$(nproc)
+        make -j$(nproc) deb-pkg
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: kernel-build
-        path: |
-          linux/arch/x86/boot/bzImage
-          linux/System.map
-          linux/vmlinux
+        name: kernel-packages
+          path: ../*.deb
