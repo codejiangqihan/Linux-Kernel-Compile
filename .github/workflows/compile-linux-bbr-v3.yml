@@ -29,11 +29,12 @@ jobs:
 
     - name: Configure kernel
       run: |
+        cd bbr
         make defconfig  # 使用默认配置文件
 
     - name: Build kernel
       run: |
-        cd linux
+        cd bbr
         make -j$(nproc) bindeb-pkg
 
     - name: Archive build artifacts
