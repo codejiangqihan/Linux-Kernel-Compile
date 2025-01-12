@@ -37,7 +37,6 @@ jobs:
       run: |
         cd linux
         make -j$(nproc) bindeb-pkg
-        ls
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v4
