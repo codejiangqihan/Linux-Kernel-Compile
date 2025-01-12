@@ -29,7 +29,6 @@ jobs:
 
     - name: Configure kernel
       run: |
-        cd linux
         make defconfig  # 使用默认配置文件
 
     - name: Build kernel
