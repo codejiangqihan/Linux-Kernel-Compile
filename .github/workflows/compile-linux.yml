@@ -25,7 +25,7 @@ jobs:
 
     - name: Set up build dependencies
       run: |
-        sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev
+        sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev debhelper dh-virtualenv
 
     - name: Configure kernel
       run: |
@@ -35,13 +35,11 @@ jobs:
     - name: Build kernel
       run: |
         cd linux
-        make -j$(nproc)
+        make -j$(nproc) bindeb-pkg
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: kernel-build
+        name: kernel-build-deb
         path: |
-          linux/arch/x86/boot/bzImage
-          linux/System.map
-          linux/vmlinux
+          linux/linux-*.deb
