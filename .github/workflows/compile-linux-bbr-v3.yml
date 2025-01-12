@@ -20,7 +20,7 @@ jobs:
 
     - name: Clone torvalds/linux repository
       run: |
-        git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        git clone -o google-bbr -b v3  https://github.com/google/bbr.git
         cd bbr
 
     - name: Set up build dependencies
