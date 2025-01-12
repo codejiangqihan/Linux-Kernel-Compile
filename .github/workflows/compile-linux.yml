@@ -36,10 +36,11 @@ jobs:
       run: |
         cd linux
         make -j$(nproc) bindeb-pkg
+        ls
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: kernel-build-deb
         path: |
-          linux/linux-*.deb
+          linux-*.deb
