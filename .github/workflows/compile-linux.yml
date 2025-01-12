@@ -25,7 +25,7 @@ jobs:
 
     - name: Set up build dependencies
       run: |
-        sudo apt-get install -y --continue-on-error build-essential libncurses-dev bison flex libssl-dev libelf-dev bc dwarves fakeroot
+        sudo apt-get install -y --ignore-missing build-essential libncurses-dev bison flex libssl-dev libelf-dev bc dwarves fakeroot
 
     - name: Configure kernel
       run: |
