@@ -30,9 +30,6 @@ jobs:
       run: |
         cd linux
         yes "" | make oldconfig  # 使用默认配置并自动接受所有默认值
-        scripts/config --enable MODULES  # 启用模块支持
-        scripts/config --enable MODULE_COMPRESS  # 启用模块压缩
-        scripts/config --enable MODULE_COMPRESS_XZ  # 使用XZ压缩模块
 
     - name: Build kernel
       run: |
