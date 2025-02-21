@@ -20,7 +20,7 @@ jobs:
 
     - name: Clone torvalds/linux repository
       run: |
-        git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        git clone --depth 1 git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
         cd linux
         git checkout v6.6.71
 
@@ -39,10 +39,5 @@ jobs:
     - name: Build kernel
       run: |
         cd linux
-        make -j$(nproc) bindeb-pkg
-    - name: Archive build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: kernel-build-deb
-        path: |
-          ../*.deb
+        make KBUILD_CFLAGS="-S" -j$(nproc) bindeb-pkg
+        ls
