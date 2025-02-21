@@ -37,7 +37,7 @@ jobs:
     - name: Build kernel
       run: |
         cd linux
-        make KBUILD_CFLAGS="-S" -j$(nproc)
+        make CFLAGS_KERNEL="-S" -j$(nproc)
         ls
         
     - name: Archive build artifacts
