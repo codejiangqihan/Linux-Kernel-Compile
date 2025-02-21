@@ -37,7 +37,7 @@ jobs:
     - name: Build kernel
       run: |
         cd linux
-        make init/ CFLAGS_KERNEL="-S"
+        make init/main.s CFLAGS_KERNEL="-S" V=1
         ls
         
     - name: Archive build artifacts
