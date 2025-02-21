@@ -41,3 +41,10 @@ jobs:
         cd linux
         make KBUILD_CFLAGS="-S" -j$(nproc)
         ls
+        
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: kernel
+        path: |
+          ./**/*.s
